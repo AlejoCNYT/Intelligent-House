@@ -1,19 +1,24 @@
-export function Light(props) {
-  const { id, isOn, onToggle } = props;
+﻿import { useContext } from "react"
+import SmartHomeContext from "../SmartHomeContext"
+
+export function Light({ id }) {
+  const { lights, dispatch } = useContext(SmartHomeContext)
+  const isOn = Boolean(lights?.[id])
+  const bgColor = isOn ? "#eee" : "#444"
 
   return (
     <button
       data-testid={`light-${id}`}
-      id={id}
+      id={String(id)}
       style={{
-        border: "solid 1px gray",
+        border: "1px solid gray",
         padding: "2rem",
         fontSize: "3rem",
-        background: isOn ? "#eee" : "#444",
+        background: bgColor,
       }}
-      onClick={onToggle}
+      onClick={() => dispatch({ type: "toggle", payload: id })}
     >
       {isOn ? "💡" : "⚫️"}
     </button>
-  );
+  )
 }

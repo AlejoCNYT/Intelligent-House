@@ -1,14 +1,9 @@
-import { Light } from "./Light";
+﻿import { useContext } from "react"
+import SmartHomeContext from "../SmartHomeContext"
+import { Light } from "./Light"
 
-export function SmartHome(props) {
-  const {
-    firstLightOn,
-    secondLightOn,
-    thirdLightOn,
-    onFirstToggle,
-    onSecondToggle,
-    onThirdToggle,
-  } = props;
+export function SmartHome() {
+  const { lights } = useContext(SmartHomeContext)
 
   return (
     <section
@@ -21,9 +16,9 @@ export function SmartHome(props) {
         paddingTop: "1rem",
       }}
     >
-      <Light id={0} isOn={firstLightOn} onToggle={onFirstToggle} />
-      <Light id={1} isOn={secondLightOn} onToggle={onSecondToggle} />
-      <Light id={2} isOn={thirdLightOn} onToggle={onThirdToggle} />
+      {lights.map((_, i) => (
+        <Light key={i} id={i} />
+      ))}
     </section>
-  );
+  )
 }
